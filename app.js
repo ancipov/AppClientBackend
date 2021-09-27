@@ -30,7 +30,7 @@ require('./routes')(app);
 //     http.createServer(app).listen(80);
 //     https.createServer(options, app).listen(443);
 // } else {
-    app.listen(8585, '0.0.0.0', () => {
+    app.listen(process.env.PORT || 80, '0.0.0.0', () => {
         console.log(`Express server started`);
     });
 //}
