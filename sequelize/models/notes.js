@@ -13,10 +13,6 @@ module.exports = (sequelize) => {
             field: 'content',
             type: DataTypes.STRING
         },
-        userId: {
-            field: 'userId',
-            type: DataTypes.NUMBER
-        },
         categoryId: {
             field: 'categoryId',
             type: DataTypes.NUMBER
