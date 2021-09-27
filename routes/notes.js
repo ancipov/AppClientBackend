@@ -1,31 +1,15 @@
 const utils = require('../utils');
 const _ = require('lodash');
 const {models} = require('../sequelize');
-const { Op , cast} = require("sequelize");
 
 module.exports = function (app) {
     //find
     app.get('/notes', [utils.jwtMW], async (req, res) => {
         try {
-            const defaultWhere = {
-                userId: utils.getUserId(req)
-            };
-            const requestWhere = JSON.parse(req.query.where || "{}");
-            let resultWhere;
-            if(req.query.where && req.query.where.indexOf("updatedAt") != -1 && req.query.where.indexOf("$gt") != -1){
-                //fetch case, so we need to cast date and use sequelize condition operators
-                const dateValue = cast(requestWhere.updatedAt["$gt"],'DATETIME');
-                resultWhere = {
-                    "updatedAt":{[Op.gte]: dateValue}
-                };
-            } else {
-                resultWhere = {
-                ...defaultWhere,
-                ...requestWhere
-                };
-            }
             const notes = await models.notes.findAll({
-                where: resultWhere,
+                where: {
+                    ...JSON.parse(req.query.where || "{}")
+                },
                 limit: req.query.limit ? Number(req.query.limit) : 1000
             });
             return res.json(notes);
@@ -64,7 +48,6 @@ module.exports = function (app) {
     //create
     app.post('/notes', [utils.jwtMW], async (req, res) => {
         try {
-            req.body.userId = utils.getUserId(req);
             let note = await models.notes.create(req.body);
 
             return res.json(note);
