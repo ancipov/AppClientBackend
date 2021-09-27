@@ -47,6 +47,10 @@ create table notes
         constraint notes_categories_id_fk
             references categories
             on update cascade on delete cascade,
+    userId INTEGER not null
+        constraint categories_users_id_fk
+            references users
+            on update cascade on delete cascade,
     deleted INTEGER default 0 not null,
     updatedAt TEXT default (strftime('%Y-%m-%d %H:%M:%S:%s', 'now', 'localtime'))
 );
