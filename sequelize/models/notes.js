@@ -9,8 +9,12 @@ module.exports = (sequelize) => {
             primaryKey: true,
             autoIncrement: true
         },
-        content: {
-            field: 'content',
+        name: {
+            field: 'name',
+            type: DataTypes.STRING
+        },
+        description: {
+            field: 'description',
             type: DataTypes.STRING
         },
         categoryId: {
