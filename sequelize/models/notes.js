@@ -21,6 +21,10 @@ module.exports = (sequelize) => {
             field: 'categoryId',
             type: DataTypes.NUMBER
         },
+        userId: {
+            field: 'userId',
+            type: DataTypes.NUMBER
+        },
         deleted: {
             field: 'deleted',
             type: DataTypes.BOOLEAN

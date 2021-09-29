@@ -48,6 +48,7 @@ module.exports = function (app) {
     //create
     app.post('/notes', [utils.jwtMW], async (req, res) => {
         try {
+            req.body.userId = utils.getUserId(req);
             let note = await models.notes.create(req.body);
 
             return res.json(note);
