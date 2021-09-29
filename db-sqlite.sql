@@ -48,7 +48,7 @@ create table notes
             references categories
             on update cascade on delete cascade,
     userId INTEGER not null
-        constraint categories_users_id_fk
+        constraint notes_users_id_fk
             references users
             on update cascade on delete cascade,
     deleted INTEGER default 0 not null,
