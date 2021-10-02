@@ -43,7 +43,7 @@ const operatorsAliases = {
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: 'db.sqlite',
+    storage: '/sandbox/db.sqlite',
     operatorsAliases
 });
 

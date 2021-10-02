@@ -1,6 +1,6 @@
 create table Users
 (
-    _id int identity,
+    id int identity,
     username varchar(255) not null,
     password varchar(255)
 )
@@ -21,7 +21,7 @@ go
 
 CREATE TABLE Categories
 (
-    _id INT PRIMARY KEY NOT NULL IDENTITY,
+    id INT PRIMARY KEY NOT NULL IDENTITY,
     name VARCHAR(100),
     description VARCHAR(100),
     deleted BIT,
@@ -30,7 +30,7 @@ CREATE TABLE Categories
 
 go
 
-CREATE UNIQUE INDEX Categories__id_uindex ON Categories (_id);
+CREATE UNIQUE INDEX Categories_id_uindex ON Categories (id);
 
 go
 
@@ -42,7 +42,7 @@ CREATE TRIGGER update_Categories_updatedAt  ON Categories
         Categories AS f
             INNER JOIN inserted
             AS i
-                       ON f._id = i._id;
+                       ON f.id = i.id;
 go
 
 alter table Categories
@@ -50,34 +50,34 @@ alter table Categories
 go
 
 alter table Categories
-    add constraint Categories_Users__id_fk
+    add constraint Categories_Users_id_fk
         foreign key (userId) references Users
             on update cascade on delete cascade
 go
 
 CREATE TABLE Notes
 (
-    _id INT PRIMARY KEY NOT NULL IDENTITY,
+    id INT PRIMARY KEY NOT NULL IDENTITY,
     content VARCHAR(100),
     deleted BIT,
-    _updatedAt DATETIME DEFAULT getdate()
+    updatedAt DATETIME DEFAULT getdate()
 );
 
 go
 
-CREATE UNIQUE INDEX Notes__id_uindex ON Notes (_id);
+CREATE UNIQUE INDEX Notes_id_uindex ON Notes (id);
 
 go
 
 CREATE TRIGGER update_Notes_updatedAt  ON Notes
 AFTER UPDATE
 AS
-  UPDATE f set _updatedAt=GETDATE()
+  UPDATE f set updatedAt=GETDATE()
   FROM
     Notes AS f
     INNER JOIN inserted
     AS i
-      ON f._id = i._id;
+      ON f.id = i.id;
 go
 
 alter table Notes
@@ -85,7 +85,7 @@ alter table Notes
 go
 
 alter table Notes
-    add constraint Notes_Users__id_fk
+    add constraint Notes_Users_id_fk
         foreign key (userId) references Users
             on update cascade on delete no action
 go
@@ -95,7 +95,7 @@ alter table Notes
 go
 
 alter table Notes
-    add constraint Notes_Categories__id_fk
+    add constraint Notes_Categories_id_fk
         foreign key (categoryId) references Categories
             on update no action on delete cascade
 go
