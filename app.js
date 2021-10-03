@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 
-var corsOptions = {
+const corsOptions = {
     allowedHeaders: ['Authorization', 'Content-Type'],
     origin: '*',
     optionsSuccessStatus: 200
