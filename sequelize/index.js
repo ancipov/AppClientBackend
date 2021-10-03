@@ -1,5 +1,4 @@
 const fs = require('fs');
-const utils = require('../utils');
 const {Sequelize} = require('sequelize');
 const {applyExtraSetup} = require('./extra-setup');
 
@@ -41,9 +40,15 @@ const operatorsAliases = {
     $col: Op.col
 };
 
+let path = '/sandbox/db.sqlite';
+
+if (!fs.existsSync(path)) {
+    path = 'db.sqlite';
+}
+
 const sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: '/sandbox/db.sqlite',
+    storage: path,
     operatorsAliases
 });
 
